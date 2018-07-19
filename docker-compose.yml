@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+
+  app:
+    container_name: mia.app
+    build: .docker/php
+    volumes:
+      - .:/var/www/html
+      - ./var/logs:/app/var/logs
+      - ./var/cache.:/app/var/cache
+
+  nginx:
+    container_name: mia.nginx
+    build: .docker/nginx
+    volumes_from:
+      - app
+    ports:
+      - "80:80"
+
